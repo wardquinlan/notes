@@ -27,8 +27,11 @@ public class Table extends JTable {
     centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
     getColumnModel().getColumn(0).setCellRenderer(centerRenderer);    
-    getColumnModel().getColumn(0).setPreferredWidth(200);
-    getColumnModel().getColumn(0).setMaxWidth(200);
+    getColumnModel().getColumn(0).setPreferredWidth(80);
+    getColumnModel().getColumn(0).setMaxWidth(80);
+    getColumnModel().getColumn(1).setCellRenderer(centerRenderer);    
+    getColumnModel().getColumn(1).setPreferredWidth(200);
+    getColumnModel().getColumn(1).setMaxWidth(200);
     
     addMouseListener(new MouseAdapter() {
       @Override
