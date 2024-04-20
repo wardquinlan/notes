@@ -1,5 +1,6 @@
 package notes;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -56,8 +57,9 @@ public class DAO {
   }
 
   public void write(String title, String text) throws Exception {
-    FileWriter writer = new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt");
+    BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt"));
     writer.write(text);
+    writer.newLine();
     writer.close();
   }
 
