@@ -18,7 +18,7 @@ public class Frame extends JFrame {
   private JTextArea textArea;
   
   public Frame(Controller controller, Model model) throws Exception {
-    super("Notebook - " + System.getProperty("notebook.version"));
+    super("Notebook - " + System.getProperty("notes.home"));
     
     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
     getContentPane().setLayout(new BorderLayout());
