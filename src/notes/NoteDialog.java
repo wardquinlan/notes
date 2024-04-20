@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,13 +29,19 @@ public class NoteDialog extends JDialog {
     JTextField titleField = new JTextField(20);
     if (title != null) {
       titleField.setText(title);
-      titleField.setEditable(rename);
+      if (rename) {
+        titleField.selectAll();
+      } else {
+        titleField.setEditable(false);
+      }
     }
     mainPanel.add(new LabeledComponent("Title", titleField), BorderLayout.NORTH);
     JTextArea textArea = new JTextArea();
     if (title != null) {
       textArea.setText(text);
-      textArea.setEditable(!rename);
+      if (rename) {
+        textArea.setEnabled(false);
+      }
     }
     mainPanel.add(new LabeledComponent("Note", new JScrollPane(textArea)), BorderLayout.CENTER);
     mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -77,6 +85,15 @@ public class NoteDialog extends JDialog {
       public void actionPerformed(ActionEvent e) {
         frame.requestFocus();
         dispose();
+      }
+    });
+    
+    addWindowFocusListener(new WindowAdapter() {
+      @Override
+      public void windowGainedFocus(WindowEvent e) {
+        if (title != null && !rename) {
+          textArea.requestFocusInWindow();
+        }
       }
     });
 
