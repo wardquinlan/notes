@@ -21,7 +21,10 @@ public class DAO {
     });
     for (File file: files) {
       String title = file.getName().substring(0, file.getName().length() - 4);
-      list.add(read(title));
+      Note note = read(title);
+      if (note.getText().toUpperCase().contains(filter.toUpperCase())) {
+        list.add(note);
+      }
     }
     list.sort(Comparator.reverseOrder());
     return list;
