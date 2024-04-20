@@ -61,6 +61,16 @@ public class Controller {
     }
   }
   
+  public void rename(String title, String newTitle) {
+    System.out.println("renaming: " + title + " to " + newTitle);
+    try {
+      dao.rename(title, newTitle);
+    } catch(Exception e) {
+      System.out.println("could not rename");
+      e.printStackTrace();
+    }
+  }
+  
   public void delete(String title) {
     System.out.println("deleting: " + title);
     try {

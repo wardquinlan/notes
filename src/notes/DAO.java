@@ -65,4 +65,8 @@ public class DAO {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
     file.delete();
   }
+  
+  public void rename(String title, String newTitle) throws Exception {
+    
+  }
 }

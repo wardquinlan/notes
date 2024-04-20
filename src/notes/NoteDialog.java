@@ -19,7 +19,7 @@ public class NoteDialog extends JDialog {
   private static final int WIDTH = 600;
   private static final int HEIGHT = 400;
 
-  public NoteDialog(Frame frame, Controller controller, String title, String text) {
+  public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
     super(frame, "Note", true);
     setLayout(new BorderLayout());
     JPanel mainPanel = new JPanel();
@@ -27,12 +27,13 @@ public class NoteDialog extends JDialog {
     JTextField titleField = new JTextField(20);
     if (title != null) {
       titleField.setText(title);
-      titleField.setEditable(false);
+      titleField.setEditable(rename);
     }
     mainPanel.add(new LabeledComponent("Title", titleField), BorderLayout.NORTH);
     JTextArea textArea = new JTextArea();
-    if (text != null) {
+    if (title != null) {
       textArea.setText(text);
+      textArea.setEditable(!rename);
     }
     mainPanel.add(new LabeledComponent("Note", new JScrollPane(textArea)), BorderLayout.CENTER);
     mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,6 +58,10 @@ public class NoteDialog extends JDialog {
         if (title == null) {
           controller.add(titleField.getText(), textArea.getText());
           frame.setSelectedRow(0);
+        } else if (rename) {
+          int row = frame.getSelectedRow();
+          controller.rename(title, titleField.getText());
+          frame.setSelectedRow(row);
         } else {
           int row = frame.getSelectedRow();
           controller.edit(titleField.getText(), textArea.getText());

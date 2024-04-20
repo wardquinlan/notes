@@ -35,7 +35,7 @@ public class Table extends JTable {
       public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
           Note note = model.get(frame.getSelectedRow());
-          new NoteDialog(frame, controller, note.getTitle(), note.getText());
+          new NoteDialog(frame, controller, note.getTitle(), note.getText(), false);
         }
       }
     });

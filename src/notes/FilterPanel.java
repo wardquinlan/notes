@@ -44,7 +44,7 @@ public class FilterPanel extends JPanel {
     add.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        new NoteDialog(frame, controller, null, null);
+        new NoteDialog(frame, controller, null, null, false);
       }
     });
     add(add);
@@ -55,11 +55,23 @@ public class FilterPanel extends JPanel {
       public void actionPerformed(ActionEvent e) {
         if (frame.getSelectedRow() != -1) {
           Note note = model.get(frame.getSelectedRow());
-          new NoteDialog(frame, controller, note.getTitle(), note.getText());
+          new NoteDialog(frame, controller, note.getTitle(), note.getText(), false);
         }
       }
     });
     add(edit);
+
+    JButton rename = new JButton("Rename");
+    rename.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (frame.getSelectedRow() != -1) {
+          Note note = model.get(frame.getSelectedRow());
+          new NoteDialog(frame, controller, note.getTitle(), note.getText(), true);
+        }
+      }
+    });
+    add(rename);
     
     JButton delete = new JButton("Delete");
     delete.addActionListener(new ActionListener() {
