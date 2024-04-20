@@ -17,13 +17,11 @@ public class Model extends DefaultTableModel {
   public String getColumnName(int column) {
     switch(column) {
     case 0:
-      return "ID";
-    case 1:
       return "Timestamp";
-    case 2:
+    case 1:
       return "Title";
     default:
-      System.err.println("unexpected column: " + column);
+      System.out.println("unexpected column: " + column);
       return null;
     }
   }
@@ -38,20 +36,18 @@ public class Model extends DefaultTableModel {
     Note note = list.get(row);
     switch (column) {
     case 0:
-      return note.getId();
-    case 1:
       return DF.format(note.getTimestamp());
-    case 2:
+    case 1:
       return note.getTitle();
     default:
-      System.err.println("unexpected column: " + column);
+      System.out.println("unexpected column: " + column);
       return null;
     }
   }
   
   @Override
   public int getColumnCount() {
-    return 3;
+    return 2;
   }
 
   public void add(Note note) {

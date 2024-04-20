@@ -27,18 +27,15 @@ public class Table extends JTable {
     centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
     getColumnModel().getColumn(0).setCellRenderer(centerRenderer);    
-    getColumnModel().getColumn(0).setPreferredWidth(60);
-    getColumnModel().getColumn(0).setMaxWidth(60);
-    getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-    getColumnModel().getColumn(1).setPreferredWidth(200);
-    getColumnModel().getColumn(1).setMaxWidth(200);
+    getColumnModel().getColumn(0).setPreferredWidth(200);
+    getColumnModel().getColumn(0).setMaxWidth(200);
     
     addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         if (e.getClickCount() == 2) {
           Note note = model.get(frame.getSelectedRow());
-          new NoteDialog(frame, controller, note.getId(), note.getTitle(), note.getText());
+          new NoteDialog(frame, controller, note.getTitle(), note.getText());
         }
       }
     });
@@ -49,7 +46,7 @@ public class Table extends JTable {
         if (e.getKeyCode() == KeyEvent.VK_DELETE) {
           Note note = model.get(frame.getSelectedRow());
           if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete '" + note.getTitle() + "'?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            controller.delete(note.getId());
+            controller.delete(note.getTitle());
             frame.requestFocus();
           }
         }

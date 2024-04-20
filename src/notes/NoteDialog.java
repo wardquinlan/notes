@@ -19,7 +19,7 @@ public class NoteDialog extends JDialog {
   private static final int WIDTH = 600;
   private static final int HEIGHT = 400;
 
-  public NoteDialog(Frame frame, Controller controller, Integer id, String title, String text) {
+  public NoteDialog(Frame frame, Controller controller, String title, String text) {
     super(frame, "Note", true);
     setLayout(new BorderLayout());
     JPanel mainPanel = new JPanel();
@@ -45,16 +45,16 @@ public class NoteDialog extends JDialog {
           JOptionPane.showMessageDialog(frame, "A title is required", "Error", JOptionPane.ERROR_MESSAGE);
           return;
         }
-        if (titleField.getText().length() > 100) {
-          JOptionPane.showMessageDialog(frame, "Title is too long (limit of 100 characters)", "Error", JOptionPane.ERROR_MESSAGE);
+        if (titleField.getText().length() > 30) {
+          JOptionPane.showMessageDialog(frame, "Title is too long (limit of 30 characters)", "Error", JOptionPane.ERROR_MESSAGE);
           return;
         }
-        if (id == null) {
+        if (title == null) {
           controller.add(titleField.getText(), textArea.getText());
           frame.setSelectedRow(0);
         } else {
           int row = frame.getSelectedRow();
-          controller.edit(id, titleField.getText(), textArea.getText());
+          controller.edit(titleField.getText(), textArea.getText());
           frame.setSelectedRow(row);
         }
         dispose();

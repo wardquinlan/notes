@@ -44,7 +44,7 @@ public class FilterPanel extends JPanel {
     add.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        new NoteDialog(frame, controller, null, null, null);
+        new NoteDialog(frame, controller, null, null);
       }
     });
     add(add);
@@ -55,7 +55,7 @@ public class FilterPanel extends JPanel {
       public void actionPerformed(ActionEvent e) {
         if (frame.getSelectedRow() != -1) {
           Note note = model.get(frame.getSelectedRow());
-          new NoteDialog(frame, controller, note.getId(), note.getTitle(), note.getText());
+          new NoteDialog(frame, controller, note.getTitle(), note.getText());
         }
       }
     });
@@ -68,7 +68,7 @@ public class FilterPanel extends JPanel {
         if (frame.getSelectedRow() != -1) {
           Note note = model.get(frame.getSelectedRow());
           if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete '" + note.getTitle() + "'?", "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            controller.delete(note.getId());
+            controller.delete(note.getTitle());
             filter.requestFocus();
           }
         }

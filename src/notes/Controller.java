@@ -22,7 +22,7 @@ public class Controller {
     try {
       model.set(dao.search(filter));
     } catch(Exception e) {
-      System.err.println("could not search");
+      System.out.println("could not search");
       e.printStackTrace();
     }
   }
@@ -34,30 +34,30 @@ public class Controller {
       model.clear();
       model.add(dao.getLast());
     } catch(Exception e) {
-      System.err.println("could not add");
+      System.out.println("could not add");
       e.printStackTrace();
     }
   }
 
-  public void edit(int id, String title, String text) {
-    System.out.println("editing: " + id + ", " + title);
+  public void edit(String title, String text) {
+    System.out.println("editing: " + title);
     try {
-      dao.edit(id, title, text);
-      Note note = dao.get(id);
+      dao.edit(title, text);
+      Note note = dao.get(title);
       model.edit(frame.getSelectedRow(), note.getTimestamp(), note.getTitle(), note.getText());
     } catch(Exception e) {
-      System.err.println("could not edit");
+      System.out.println("could not edit");
       e.printStackTrace();
     }
   }
   
-  public void delete(int id) {
-    System.out.println("deleting: " + id);
+  public void delete(String title) {
+    System.out.println("deleting: " + title);
     try {
-      dao.delete(id);
+      dao.delete(title);
       model.delete(frame.getSelectedRow());
     } catch(Exception e) {
-      System.err.println("could not delete");
+      System.out.println("could not delete");
       e.printStackTrace();
     }
   }

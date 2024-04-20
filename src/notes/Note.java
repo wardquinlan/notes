@@ -3,18 +3,9 @@ package notes;
 import java.util.Date;
 
 public class Note {
-  private Integer id;
   private Date timestamp;
   private String title;
   private String text;
-  
-  public Integer getId() {
-    return id;
-  }
-  
-  public void setId(Integer id) {
-    this.id = id;
-  }
   
   public Date getTimestamp() {
     return timestamp;
