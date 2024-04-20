@@ -59,7 +59,7 @@ public class DAO {
   public void write(String title, String text) throws Exception {
     BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt"));
     writer.write(text);
-    writer.newLine();
+    //writer.newLine();
     writer.close();
   }
 
