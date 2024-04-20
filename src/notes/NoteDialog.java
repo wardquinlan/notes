@@ -1,6 +1,7 @@
 package notes;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ public class NoteDialog extends JDialog {
   private static final long serialVersionUID = 6299811276766639359L;
   private static final int WIDTH = 600;
   private static final int HEIGHT = 400;
+  private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
     super(frame, "Note", true);
@@ -40,7 +42,8 @@ public class NoteDialog extends JDialog {
     if (title != null) {
       textArea.setText(text);
       if (rename) {
-        textArea.setEnabled(false);
+        textArea.setEditable(false);
+        textArea.setBackground(BACKGROUND);
       }
     }
     mainPanel.add(new LabeledComponent("Note", new JScrollPane(textArea)), BorderLayout.CENTER);

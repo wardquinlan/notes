@@ -1,10 +1,17 @@
 package notes;
 
+import java.io.File;
+
 public class Main {
   public static void main(String[] args) {
     System.out.println("starting up");
     if (args.length != 1) {
       System.out.println("usage: notes path");
+      System.exit(1);
+    }
+    File file = new File(args[0]);
+    if (!file.isDirectory()) {
+      System.out.println(args[0] + " does not exist");
       System.exit(1);
     }
     System.getProperties().put("notes.home", args[0]);
