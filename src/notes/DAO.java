@@ -67,6 +67,8 @@ public class DAO {
   }
   
   public void rename(String title, String newTitle) throws Exception {
-    
+    File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
+    File fileTo = new File(System.getProperty("notes.home") + File.separator + newTitle + ".txt");
+    file.renameTo(fileTo);
   }
 }

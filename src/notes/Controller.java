@@ -54,7 +54,7 @@ public class Controller {
     try {
       dao.write(title, text);
       Note note = dao.read(title);
-      model.edit(frame.getSelectedRow(), note.getTimestamp(), note.getTitle(), note.getText());
+      model.update(frame.getSelectedRow(), note.getTimestamp(), note.getTitle(), note.getText());
     } catch(Exception e) {
       System.out.println("could not edit");
       e.printStackTrace();
@@ -65,6 +65,8 @@ public class Controller {
     System.out.println("renaming: " + title + " to " + newTitle);
     try {
       dao.rename(title, newTitle);
+      Note note = dao.read(newTitle);
+      model.update(frame.getSelectedRow(), note.getTimestamp(), note.getTitle(), note.getText());
     } catch(Exception e) {
       System.out.println("could not rename");
       e.printStackTrace();

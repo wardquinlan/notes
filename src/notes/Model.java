@@ -55,7 +55,7 @@ public class Model extends DefaultTableModel {
     fireTableDataChanged();
   }
   
-  public void edit(int index, Date timestamp, String title, String text) {
+  public void update(int index, Date timestamp, String title, String text) {
     Note note = list.get(index);
     note.setTimestamp(timestamp);
     note.setTitle(title);
