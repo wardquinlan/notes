@@ -1,5 +1,6 @@
 package notes;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -39,38 +40,56 @@ public class DAO {
   
   public Note read(String title) throws Exception {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
-    FileReader reader = new FileReader(file);
-    StringBuffer sb = new StringBuffer();
-    while (true) {
-      int val = reader.read();
-      if (val == -1) {
-        break;
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new FileReader(file));
+      StringBuffer sb = new StringBuffer();
+      while (true) {
+        int val = reader.read();
+        if (val == -1) {
+          break;
+        }
+        sb.append((char) val);
       }
-      sb.append((char) val);
+      reader.close();
+      Note note = new Note();
+      note.setTimestamp(new Date(file.lastModified()));
+      note.setTitle(title);
+      note.setText(sb.toString());
+      return note;
+    } finally {
+      if (reader != null) {
+        reader.close();
+      }
     }
-    reader.close();
-    Note note = new Note();
-    note.setTimestamp(new Date(file.lastModified()));
-    note.setTitle(title);
-    note.setText(sb.toString());
-    return note;
   }
 
   public void write(String title, String text) throws Exception {
-    BufferedWriter writer = new BufferedWriter(new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt"));
-    writer.write(text);
-    //writer.newLine();
-    writer.close();
+    BufferedWriter writer = null;
+    try {
+      writer = new BufferedWriter(new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt"));
+      writer.write(text);
+    } finally {
+      if (writer != null) {
+        writer.close();
+      }
+    }
   }
 
   public void delete(String title) throws Exception {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
-    file.delete();
+    boolean ret = file.delete();
+    if (!ret) {
+      throw new Exception("could not delete file: " + title);
+    }
   }
   
   public void rename(String title, String newTitle) throws Exception {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
     File fileTo = new File(System.getProperty("notes.home") + File.separator + newTitle + ".txt");
-    file.renameTo(fileTo);
+    boolean ret = file.renameTo(fileTo);
+    if (!ret) {
+      throw new Exception("could not rename file: " + title + " => " + newTitle);
+    }
   }
 }
