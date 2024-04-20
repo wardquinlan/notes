@@ -22,7 +22,8 @@ public class DAO {
     for (File file: files) {
       String title = file.getName().substring(0, file.getName().length() - 4);
       Note note = read(title);
-      if (note.getText().toUpperCase().contains(filter.toUpperCase())) {
+      if (title.toUpperCase().contains(filter.toUpperCase()) || 
+          note.getText().toUpperCase().contains(filter.toUpperCase())) {
         list.add(note);
       }
     }
