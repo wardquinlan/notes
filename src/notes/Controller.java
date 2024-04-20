@@ -30,9 +30,9 @@ public class Controller {
   public void add(String title, String text) {
     System.out.println("adding: " + title);
     try {
-      dao.add(title, text);
+      dao.write(title, text);
       model.clear();
-      model.add(dao.get(title));
+      model.add(dao.read(title));
     } catch(Exception e) {
       System.out.println("could not add");
       e.printStackTrace();
@@ -42,8 +42,8 @@ public class Controller {
   public void edit(String title, String text) {
     System.out.println("editing: " + title);
     try {
-      dao.edit(title, text);
-      Note note = dao.get(title);
+      dao.write(title, text);
+      Note note = dao.read(title);
       model.edit(frame.getSelectedRow(), note.getTimestamp(), note.getTitle(), note.getText());
     } catch(Exception e) {
       System.out.println("could not edit");

@@ -20,24 +20,12 @@ public class DAO {
     });
     for (File file: files) {
       String title = file.getName().substring(0, file.getName().length() - 4);
-      list.add(get(title));
+      list.add(read(title));
     }
     return list;
   }
   
-  public void add(String title, String text) throws Exception {
-    FileWriter writer = new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt");
-    writer.write(text);
-    writer.close();
-  }
-
-  public void edit(String title, String text) throws Exception {
-  }
-  
-  public void delete(String title) throws Exception {
-  }
-  
-  public Note get(String title) throws Exception {
+  public Note read(String title) throws Exception {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
     FileReader reader = new FileReader(file);
     StringBuffer sb = new StringBuffer();
@@ -54,5 +42,16 @@ public class DAO {
     note.setTitle(title);
     note.setText(sb.toString());
     return note;
+  }
+
+  public void write(String title, String text) throws Exception {
+    FileWriter writer = new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt");
+    writer.write(text);
+    writer.close();
+  }
+
+  public void delete(String title) throws Exception {
+    File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
+    file.delete();
   }
 }
