@@ -50,6 +50,10 @@ public class NoteDialog extends JDialog {
           JOptionPane.showMessageDialog(frame, "Title is too long (limit of 30 characters)", "Error", JOptionPane.ERROR_MESSAGE);
           return;
         }
+        if (controller.exists(titleField.getText())) {
+          JOptionPane.showMessageDialog(frame, "The title '" + titleField.getText() + "' is already being used", "Error", JOptionPane.ERROR_MESSAGE);
+          return;
+        }
         if (title == null) {
           controller.add(titleField.getText(), textArea.getText());
           frame.setSelectedRow(0);

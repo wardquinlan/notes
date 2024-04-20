@@ -27,6 +27,16 @@ public class Controller {
     }
   }
   
+  public boolean exists(String title) {
+    try {
+      return dao.exists(title);
+    } catch(Exception e) {
+      System.out.println("could not test existence");
+      e.printStackTrace();
+      return true;
+    }
+  }
+  
   public void add(String title, String text) {
     System.out.println("adding: " + title);
     try {

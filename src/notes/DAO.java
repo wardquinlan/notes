@@ -25,6 +25,11 @@ public class DAO {
     return list;
   }
   
+  public boolean exists(String title) throws Exception {
+    File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
+    return file.exists();
+  }
+  
   public Note read(String title) throws Exception {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
     FileReader reader = new FileReader(file);
