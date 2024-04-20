@@ -27,6 +27,7 @@ public class NoteDialog extends JDialog {
     JTextField titleField = new JTextField(20);
     if (title != null) {
       titleField.setText(title);
+      titleField.setEditable(false);
     }
     mainPanel.add(new LabeledComponent("Title", titleField), BorderLayout.NORTH);
     JTextArea textArea = new JTextArea();
