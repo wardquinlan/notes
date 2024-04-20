@@ -19,10 +19,8 @@ public class DAO {
       }
     });
     for (File file: files) {
-      Note note = new Note();
-      note.setTimestamp(new Date(file.lastModified()));
-      note.setTitle(file.getName().substring(0, file.getName().length() - 4));
-      list.add(note);
+      String title = file.getName().substring(0, file.getName().length() - 4);
+      list.add(get(title));
     }
     return list;
   }
