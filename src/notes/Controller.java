@@ -27,12 +27,12 @@ public class Controller {
     }
   }
   
-  public void add(String title, String note) {
+  public void add(String title, String text) {
     System.out.println("adding: " + title);
     try {
-      dao.add(title, note);
+      dao.add(title, text);
       model.clear();
-      model.add(dao.getLast());
+      model.add(dao.get(title));
     } catch(Exception e) {
       System.out.println("could not add");
       e.printStackTrace();
