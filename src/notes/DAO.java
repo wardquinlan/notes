@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class DAO {
       String title = file.getName().substring(0, file.getName().length() - 4);
       list.add(read(title));
     }
+    list.sort(Comparator.reverseOrder());
     return list;
   }
   
