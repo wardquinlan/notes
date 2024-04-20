@@ -61,6 +61,8 @@ public class NoteDialog extends JDialog {
         }
         if ((title == null || rename) && controller.exists(titleField.getText())) {
           JOptionPane.showMessageDialog(frame, "The title '" + titleField.getText() + "' is already being used", "Error", JOptionPane.ERROR_MESSAGE);
+          titleField.selectAll();
+          titleField.requestFocus();
           return;
         }
         if (title == null) {
@@ -92,7 +94,7 @@ public class NoteDialog extends JDialog {
       @Override
       public void windowGainedFocus(WindowEvent e) {
         if (title != null && !rename) {
-          textArea.requestFocusInWindow();
+          textArea.requestFocus();
         }
       }
     });
