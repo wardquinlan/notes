@@ -1,6 +1,7 @@
 package notes;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -15,6 +16,7 @@ public class Frame extends JFrame {
   private static final int WIDTH = 1200;
   private static final int HEIGHT = 800;
   private static final int DIVIDER_LOCATION = 400;
+  private static final Font FONT = new Font(Font.MONOSPACED, Font.PLAIN, 11);
   
   private FilterPanel filterPanel;
   private JTable table;
@@ -25,6 +27,7 @@ public class Frame extends JFrame {
     setSize(WIDTH, HEIGHT);
     
     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+    UIManager.put("TextArea.font", FONT);
     getContentPane().setLayout(new BorderLayout());
     
     filterPanel = new FilterPanel(this, controller, model);
