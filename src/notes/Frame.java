@@ -29,6 +29,7 @@ public class Frame extends JFrame {
     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
     UIManager.put("TextArea.font", FONT);
     UIManager.put("Table.font", FONT);
+    UIManager.put("TextField.font", FONT);
     getContentPane().setLayout(new BorderLayout());
     
     filterPanel = new FilterPanel(this, controller, model);
