@@ -13,12 +13,17 @@ import javax.swing.border.EmptyBorder;
 
 public class Frame extends JFrame {
   private static final long serialVersionUID = 4319336198324776603L;
+  private static final int WIDTH = 1200;
+  private static final int HEIGHT = 800;
+  private static final int DIVIDER_LOCATION = 400;
+  
   private FilterPanel filterPanel;
   private JTable table;
   private JTextArea textArea;
   
   public Frame(Controller controller, Model model) throws Exception {
     super("Notes - " + System.getProperty("notes.home"));
+    setSize(WIDTH, HEIGHT);
     
     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
     getContentPane().setLayout(new BorderLayout());
@@ -30,7 +35,7 @@ public class Frame extends JFrame {
     JScrollPane scrollPane = new JScrollPane(table);
     scrollPane.setBorder(new EmptyBorder(5, 5, 5, 5));
     JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-    splitPane.setDividerLocation((int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.6));
+    splitPane.setDividerLocation(DIVIDER_LOCATION);
     splitPane.setTopComponent(scrollPane);
     
     textArea = new JTextArea();
@@ -40,8 +45,6 @@ public class Frame extends JFrame {
     splitPane.setBottomComponent(new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
     
     add(splitPane, BorderLayout.CENTER);
-    
-    setSize(Toolkit.getDefaultToolkit().getScreenSize());
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
