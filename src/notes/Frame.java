@@ -1,7 +1,6 @@
 package notes;
 
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;

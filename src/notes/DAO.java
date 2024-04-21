@@ -51,7 +51,6 @@ public class DAO {
         }
         sb.append((char) val);
       }
-      reader.close();
       Note note = new Note();
       note.setTimestamp(new Date(file.lastModified()));
       note.setTitle(title);
