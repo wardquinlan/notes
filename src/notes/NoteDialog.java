@@ -39,6 +39,7 @@ public class NoteDialog extends JDialog {
     }
     mainPanel.add(new LabeledComponent("Title", titleField), BorderLayout.NORTH);
     JTextArea textArea = new JTextArea();
+    textArea.setLineWrap(true);
     if (title != null) {
       textArea.setText(text);
       if (rename) {
@@ -46,7 +47,7 @@ public class NoteDialog extends JDialog {
         textArea.setBackground(BACKGROUND);
       }
     }
-    mainPanel.add(new LabeledComponent("Note", new JScrollPane(textArea)), BorderLayout.CENTER);
+    mainPanel.add(new LabeledComponent("Note", new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER)), BorderLayout.CENTER);
     mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
     getContentPane().add(mainPanel, BorderLayout.CENTER);
     

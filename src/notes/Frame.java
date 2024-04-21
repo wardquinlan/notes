@@ -34,9 +34,10 @@ public class Frame extends JFrame {
     splitPane.setTopComponent(scrollPane);
     
     textArea = new JTextArea();
+    textArea.setLineWrap(true);
     textArea.setEditable(false);
     textArea.setBorder(new EmptyBorder(5, 5, 5, 5));
-    splitPane.setBottomComponent(new JScrollPane(textArea));
+    splitPane.setBottomComponent(new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
     
     add(splitPane, BorderLayout.CENTER);
     
