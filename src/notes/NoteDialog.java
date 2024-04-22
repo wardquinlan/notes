@@ -19,8 +19,8 @@ import javax.swing.border.EmptyBorder;
 
 public class NoteDialog extends JDialog {
   private static final long serialVersionUID = 6299811276766639359L;
-  private static final int WIDTH = 600;
-  private static final int HEIGHT = 400;
+  private static final int WIDTH = 1000;
+  private static final int HEIGHT = 800;
   private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
