@@ -108,7 +108,9 @@ public class NoteDialog extends JDialog {
     textArea.addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
-        setTitle("*Note");
+        if (!textArea.getText().equals(text)) {
+          setTitle("* Note");
+        }
       }
     });
 
