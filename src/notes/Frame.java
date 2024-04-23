@@ -16,7 +16,7 @@ public class Frame extends JFrame {
   private static final int WIDTH = 1200;
   private static final int HEIGHT = 800;
   private static final int DIVIDER_LOCATION = 400;
-  private static final int DEFAULT_FONT_SIZE = 11;
+  private static final int DEFAULT_FONT_SIZE = 12;
   
   private FilterPanel filterPanel;
   private JTable table;
