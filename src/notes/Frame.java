@@ -16,7 +16,7 @@ public class Frame extends JFrame {
   private static final int WIDTH = 1200;
   private static final int HEIGHT = 800;
   private static final int DIVIDER_LOCATION = 400;
-  private static final Font FONT = new Font(Font.MONOSPACED, Font.PLAIN, 11);
+  private static final int DEFAULT_FONT_SIZE = 11;
   
   private FilterPanel filterPanel;
   private JTable table;
@@ -26,10 +26,16 @@ public class Frame extends JFrame {
     super("Notes - " + System.getProperty("notes.home"));
     setSize(WIDTH, HEIGHT);
     
+    int size = DEFAULT_FONT_SIZE;
+    Font font;
+    if (System.getProperty("notes.fontsize") != null) {
+      size = Integer.parseInt(System.getProperty("notes.fontsize"));
+    }
+    font = new Font(Font.MONOSPACED, Font.PLAIN, size);
     UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-    UIManager.put("TextArea.font", FONT);
-    UIManager.put("Table.font", FONT);
-    UIManager.put("TextField.font", FONT);
+    UIManager.put("TextArea.font", font);
+    UIManager.put("Table.font", font);
+    UIManager.put("TextField.font", font);
     getContentPane().setLayout(new BorderLayout());
     
     filterPanel = new FilterPanel(this, controller, model);
