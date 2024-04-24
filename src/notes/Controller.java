@@ -27,6 +27,22 @@ public class Controller {
     }
   }
   
+  public boolean isModified(String title, String text) {
+    System.out.println("isModified: " + title);
+    try {
+      if (!dao.exists(title)) {
+        // if it doesn't exist, it isn't really modified
+        return false;
+      }
+      Note note = dao.read(title);
+      return !text.equals(note.getText());
+    } catch(Exception e) {
+      System.out.println("could not detect if modified");
+      e.printStackTrace();
+      return true;
+    }
+  }
+  
   public boolean exists(String title) {
     try {
       return dao.exists(title);

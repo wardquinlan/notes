@@ -79,6 +79,10 @@ public class NoteDialog extends JDialog {
           controller.rename(title, titleField.getText());
           frame.setSelectedRow(row);
         } else {
+          if (controller.isModified(title, text)) {
+            JOptionPane.showMessageDialog(frame, "The note has been modified externally; you will have to cancel and try again", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+          }
           int row = frame.getSelectedRow();
           controller.edit(titleField.getText(), textArea.getText());
           frame.setSelectedRow(row);
