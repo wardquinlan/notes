@@ -57,24 +57,16 @@ public class NoteDialog extends JDialog {
     ok.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        if (titleField.getText().length() == 0) {
-          JOptionPane.showMessageDialog(frame, "A title is required", "Error", JOptionPane.ERROR_MESSAGE);
-          return;
-        }
-        if (titleField.getText().length() > 30) {
-          JOptionPane.showMessageDialog(frame, "Title is too long (limit of 30 characters)", "Error", JOptionPane.ERROR_MESSAGE);
-          return;
-        }
-        if ((title == null || rename) && controller.exists(titleField.getText())) {
-          JOptionPane.showMessageDialog(frame, "The title '" + titleField.getText() + "' is already being used", "Error", JOptionPane.ERROR_MESSAGE);
-          titleField.selectAll();
-          titleField.requestFocus();
-          return;
-        }
         if (title == null) {
+          if (!validateTitleField(frame, controller, titleField)) {
+            return;
+          }
           controller.add(titleField.getText(), textArea.getText());
           frame.setSelectedRow(0);
         } else if (rename) {
+          if (!validateTitleField(frame, controller, titleField)) {
+            return;
+          }
           int row = frame.getSelectedRow();
           controller.rename(title, titleField.getText());
           frame.setSelectedRow(row);
@@ -126,5 +118,23 @@ public class NoteDialog extends JDialog {
     setSize(WIDTH, HEIGHT);
     setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - WIDTH / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - HEIGHT / 2);
     setVisible(true);
+  }
+  
+  private boolean validateTitleField(Frame frame, Controller controller, JTextField titleField) {
+    if (titleField.getText().length() == 0) {
+      JOptionPane.showMessageDialog(frame, "A title is required", "Error", JOptionPane.ERROR_MESSAGE);
+      return false;
+    }
+    if (titleField.getText().length() > 30) {
+      JOptionPane.showMessageDialog(frame, "Title is too long (limit of 30 characters)", "Error", JOptionPane.ERROR_MESSAGE);
+      return false;
+    }
+    if (controller.exists(titleField.getText())) {
+      JOptionPane.showMessageDialog(frame, "The title '" + titleField.getText() + "' is already being used", "Error", JOptionPane.ERROR_MESSAGE);
+      titleField.selectAll();
+      titleField.requestFocus();
+      return false;
+    }
+    return true;
   }
 }
