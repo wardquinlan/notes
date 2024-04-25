@@ -24,13 +24,23 @@ public class NoteDialog extends JDialog {
   private static final int WIDTH = 1000;
   private static final int HEIGHT = 800;
   private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
+  private static final int MAX_TITLE_LENGTH = 5;
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
     super(frame, "Note", true);
     setLayout(new BorderLayout());
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
-    JTextField titleField = new JTextField(20);
+    JTextField titleField = new JTextField();
+    titleField.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        System.out.println(titleField.getText().length());
+        if (titleField.getText().length() == MAX_TITLE_LENGTH) {
+          e.consume();
+        }
+      }
+    });
     if (title != null) {
       titleField.setText(title);
       if (rename) {
@@ -123,10 +133,6 @@ public class NoteDialog extends JDialog {
   private boolean validateTitleField(Frame frame, Controller controller, JTextField titleField) {
     if (titleField.getText().length() == 0) {
       JOptionPane.showMessageDialog(frame, "A title is required", "Error", JOptionPane.ERROR_MESSAGE);
-      return false;
-    }
-    if (titleField.getText().length() > 30) {
-      JOptionPane.showMessageDialog(frame, "Title is too long (limit of 30 characters)", "Error", JOptionPane.ERROR_MESSAGE);
       return false;
     }
     if (controller.exists(titleField.getText())) {
