@@ -25,9 +25,11 @@ public class NoteDialog extends JDialog {
   private static final int HEIGHT = 800;
   private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
   private static final int MAX_TITLE_LENGTH = 30;
+  private String text;
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
     super(frame, "Note", true);
+    this.text = text;
     setLayout(new BorderLayout());
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
@@ -52,7 +54,7 @@ public class NoteDialog extends JDialog {
     JTextArea textArea = new JTextArea();
     textArea.setLineWrap(true);
     if (title != null) {
-      textArea.setText(text);
+      textArea.setText(getText());
       if (rename) {
         textArea.setEditable(false);
         textArea.setBackground(BACKGROUND);
@@ -80,7 +82,7 @@ public class NoteDialog extends JDialog {
           controller.rename(title, titleField.getText());
           frame.setSelectedRow(row);
         } else {
-          if (controller.isModified(title, text)) {
+          if (controller.isModified(title, getText())) {
             JOptionPane.showMessageDialog(frame, "The note has been modified externally; you will have to cancel, refresh your search, and then try again", "Error", JOptionPane.ERROR_MESSAGE);
             return;
           }
@@ -91,6 +93,24 @@ public class NoteDialog extends JDialog {
         dispose();
       }
     });
+    
+    JButton write = null;
+    if (title != null && !rename) {
+      write = new JButton("Write");
+      write.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          if (controller.isModified(title, getText())) {
+            JOptionPane.showMessageDialog(frame, "The note has been modified externally; you will have to cancel, refresh your search, and then try again", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+          }
+          int row = frame.getSelectedRow();
+          controller.edit(titleField.getText(), textArea.getText());
+          frame.setSelectedRow(row);
+          setText(textArea.getText());
+        }
+      });
+    }
     
     JButton cancel = new JButton("Cancel");
     cancel.addActionListener(new ActionListener() {
@@ -113,13 +133,16 @@ public class NoteDialog extends JDialog {
     textArea.addKeyListener(new KeyAdapter() {
       @Override
       public void keyReleased(KeyEvent e) {
-        if (!textArea.getText().equals(text)) {
+        if (!textArea.getText().equals(getText())) {
           setTitle("* Note");
         }
       }
     });
 
     JPanel buttonPanel = new JPanel();
+    if (write != null) {
+      buttonPanel.add(write);
+    }
     buttonPanel.add(ok);
     buttonPanel.add(cancel);
     getContentPane().add(buttonPanel, BorderLayout.SOUTH);
@@ -142,5 +165,13 @@ public class NoteDialog extends JDialog {
       return false;
     }
     return true;
+  }
+  
+  private String getText() {
+    return text;
+  }
+  
+  private void setText(String text) {
+    this.text = text;
   }
 }
