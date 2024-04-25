@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 
 public class NoteDialog extends JDialog {
   private static final long serialVersionUID = 6299811276766639359L;
+  private static final String DIALOG_TITLE = "Note";
   private static final int WIDTH = 1000;
   private static final int HEIGHT = 800;
   private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
@@ -28,7 +29,7 @@ public class NoteDialog extends JDialog {
   private String text;
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
-    super(frame, "Note", true);
+    super(frame, DIALOG_TITLE, true);
     this.text = text;
     setLayout(new BorderLayout());
     JPanel mainPanel = new JPanel();
@@ -108,6 +109,7 @@ public class NoteDialog extends JDialog {
           controller.edit(titleField.getText(), textArea.getText());
           frame.setSelectedRow(row);
           setText(textArea.getText());
+          setTitle(DIALOG_TITLE);
           textArea.requestFocus();
         }
       });
@@ -135,7 +137,7 @@ public class NoteDialog extends JDialog {
       @Override
       public void keyReleased(KeyEvent e) {
         if (!textArea.getText().equals(getText())) {
-          setTitle("* Note");
+          setTitle("* " + DIALOG_TITLE);
         }
       }
     });
