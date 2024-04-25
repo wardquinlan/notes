@@ -108,6 +108,7 @@ public class NoteDialog extends JDialog {
           controller.edit(titleField.getText(), textArea.getText());
           frame.setSelectedRow(row);
           setText(textArea.getText());
+          textArea.requestFocus();
         }
       });
     }
