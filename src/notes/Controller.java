@@ -20,7 +20,7 @@ public class Controller {
   public void search(String filter) {
     System.out.println("searching: " + filter);
     try {
-      model.set(dao.search(filter));
+      model.set(filter, dao.search(filter));
     } catch(Exception e) {
       System.out.println("could not search");
       e.printStackTrace();

@@ -67,9 +67,9 @@ public class Table extends JTable {
     super.valueChanged(e);
     int index = getSelectedRow();
     if (index == -1) {
-      frame.setText("");
+      frame.setText(model.getFilter(), "");
     } else {
-      frame.setText(model.get(index).getText());
+      frame.setText(model.getFilter(), model.get(index).getText());
     }
   }
 }

@@ -58,7 +58,8 @@ public class Frame extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
-  public void setText(String text) {
+  public void setText(String filter, String text) {
+    System.out.println("filter:" + filter);
     textArea.setText(text);
     textArea.setCaretPosition(0);
   }
