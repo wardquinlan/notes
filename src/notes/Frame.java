@@ -14,6 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
 
 public class Frame extends JFrame {
@@ -66,8 +67,17 @@ public class Frame extends JFrame {
 
   public void setText(String filter, String text) {
     System.out.println("filter:" + filter);
-    List<Integer> list = getFilterIndexes(filter, text);
     textArea.setText(text);
+    List<Integer> list = getFilterIndexes(filter, text);
+    Highlighter highlighter = textArea.getHighlighter();
+    for (Integer index: list) {
+      try {
+        highlighter.addHighlight(index, index + filter.length(), painter);
+      } catch(Exception e) {
+        System.out.println("unable to highlight: " + index);
+        e.printStackTrace();
+      }
+    }
     textArea.setCaretPosition(0);
   }
   
