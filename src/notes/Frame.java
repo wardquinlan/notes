@@ -1,7 +1,10 @@
 package notes;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -10,6 +13,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter.HighlightPainter;
 
 public class Frame extends JFrame {
   private static final long serialVersionUID = 4319336198324776603L;
@@ -17,6 +22,7 @@ public class Frame extends JFrame {
   private static final int HEIGHT = 800;
   private static final int DIVIDER_LOCATION = 400;
   private static final int DEFAULT_FONT_SIZE = 12;
+  private HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
   
   private FilterPanel filterPanel;
   private JTable table;
@@ -60,8 +66,28 @@ public class Frame extends JFrame {
 
   public void setText(String filter, String text) {
     System.out.println("filter:" + filter);
+    List<Integer> list = getFilterIndexes(filter, text);
     textArea.setText(text);
     textArea.setCaretPosition(0);
+  }
+  
+  private List<Integer> getFilterIndexes(String filter, String text) {
+    filter = filter.toUpperCase();
+    text = text.toUpperCase();
+    List<Integer> list = new ArrayList<>();
+    if (filter.equals("")) {
+      return list;
+    }
+    int index = 0;
+    while (true) {
+      index = text.indexOf(filter, index);
+      if (index == -1) {
+        break;
+      }
+      list.add(index);
+      index += filter.length();
+    }
+    return list;
   }
   
   public int getSelectedRow() {
