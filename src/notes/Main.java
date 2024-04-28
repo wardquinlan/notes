@@ -3,15 +3,17 @@ package notes;
 import java.io.File;
 
 public class Main {
+  private static final Logger logger = new Logger(Main.class);
+  
   public static void main(String[] args) {
-    System.out.println("starting up");
+    logger.info("starting up");
     if (args.length != 1) {
       System.out.println("usage: notes path");
       System.exit(1);
     }
     File file = new File(args[0]);
     if (!file.isDirectory()) {
-      System.out.println(args[0] + " does not exist");
+      logger.error(args[0] + " does not exist");
       System.exit(1);
     }
     System.getProperties().put("notes.home", args[0]);
@@ -24,8 +26,7 @@ public class Main {
       controller.setFrame(frame);
       frame.setVisible(true);
     } catch(Exception e) {
-      System.out.println("could not launch frame");
-      e.printStackTrace();
+      logger.error("could not launch frame", e);
       System.exit(1);
     }
   }
