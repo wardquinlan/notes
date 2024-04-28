@@ -1,6 +1,7 @@
 package notes;
 
 public class Controller {
+  private static final Logger logger = new Logger(Controller.class);
   private Frame frame;
   private DAO dao;
   private Model model;
@@ -18,17 +19,16 @@ public class Controller {
   }
   
   public void search(String filter) {
-    System.out.println("searching: " + filter);
+    logger.info("searching: " + filter);
     try {
       model.set(filter, dao.search(filter));
     } catch(Exception e) {
-      System.out.println("could not search");
-      e.printStackTrace();
+      logger.error("could not search", e);
     }
   }
   
   public boolean isModified(String title, String text) {
-    System.out.println("isModified: " + title);
+    logger.info("isModified: " + title);
     try {
       if (!dao.exists(title)) {
         // if it doesn't exist, it isn't really modified
@@ -37,66 +37,61 @@ public class Controller {
       Note note = dao.read(title);
       return !text.equals(note.getText());
     } catch(Exception e) {
-      System.out.println("could not detect if modified");
-      e.printStackTrace();
+      logger.error("could not detect if modified", e);
       return true;
     }
   }
   
   public boolean exists(String title) {
+    logger.info("exists: " + title);
     try {
       return dao.exists(title);
     } catch(Exception e) {
-      System.out.println("could not test existence");
-      e.printStackTrace();
+      logger.error("could not test existence", e);
       return true;
     }
   }
   
   public void add(String title, String text) {
-    System.out.println("adding: " + title);
+    logger.info("adding: " + title);
     try {
       dao.write(title, text);
       model.clear();
       model.add(dao.read(title));
     } catch(Exception e) {
-      System.out.println("could not add");
-      e.printStackTrace();
+      logger.error("could not add", e);
     }
   }
 
   public void edit(String title, String text) {
-    System.out.println("editing: " + title);
+    logger.info("editing: " + title);
     try {
       dao.write(title, text);
       Note note = dao.read(title);
       model.update(frame.getSelectedRow(), note.getTimestamp(), note.getTitle(), note.getText());
     } catch(Exception e) {
-      System.out.println("could not edit");
-      e.printStackTrace();
+      logger.error("could not edit", e);
     }
   }
   
   public void rename(String title, String newTitle) {
-    System.out.println("renaming: " + title + " to " + newTitle);
+    logger.info("renaming: " + title + " to " + newTitle);
     try {
       dao.rename(title, newTitle);
       Note note = dao.read(newTitle);
       model.update(frame.getSelectedRow(), note.getTimestamp(), note.getTitle(), note.getText());
     } catch(Exception e) {
-      System.out.println("could not rename");
-      e.printStackTrace();
+      logger.error("could not rename", e);
     }
   }
   
   public void delete(String title) {
-    System.out.println("deleting: " + title);
+    logger.info("deleting: " + title);
     try {
       dao.delete(title);
       model.delete(frame.getSelectedRow());
     } catch(Exception e) {
-      System.out.println("could not delete");
-      e.printStackTrace();
+      logger.error("could not delete", e);
     }
   }
 }
