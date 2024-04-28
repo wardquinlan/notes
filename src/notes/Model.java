@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Model extends DefaultTableModel {
   private static final long serialVersionUID = -3950929583108303584L;
+  private static final Logger logger = new Logger(Model.class);
   private String filter;
   private List<Note> list = new ArrayList<>();
   private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
@@ -24,7 +25,7 @@ public class Model extends DefaultTableModel {
     case 2:
       return "Title";
     default:
-      System.out.println("unexpected column: " + column);
+      logger.error("unexpected column: " + column);
       return null;
     }
   }
@@ -45,7 +46,7 @@ public class Model extends DefaultTableModel {
     case 2:
       return note.getTitle();
     default:
-      System.out.println("unexpected column: " + column);
+      logger.error("unexpected column: " + column);
       return null;
     }
   }

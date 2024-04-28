@@ -12,6 +12,9 @@ import java.util.Date;
 import java.util.List;
 
 public class DAO {
+  @SuppressWarnings("unused")
+  private static final Logger logger = new Logger(DAO.class);
+  
   public List<Note> search(String filter) throws Exception {
     List<Note> list = new ArrayList<>();
     File home = new File(System.getProperty("notes.home"));

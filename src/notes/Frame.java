@@ -19,6 +19,7 @@ import javax.swing.text.Highlighter.HighlightPainter;
 
 public class Frame extends JFrame {
   private static final long serialVersionUID = 4319336198324776603L;
+  private static final Logger logger = new Logger(Frame.class);
   private static final int WIDTH = 1200;
   private static final int HEIGHT = 800;
   private static final int DIVIDER_LOCATION = 400;
@@ -66,7 +67,7 @@ public class Frame extends JFrame {
   }
 
   public void setText(String filter, String text) {
-    System.out.println("filter:" + filter);
+    logger.info("filter:" + filter);
     textArea.setText(text);
     List<Integer> list = getFilterIndexes(filter, text);
     Highlighter highlighter = textArea.getHighlighter();
@@ -74,8 +75,7 @@ public class Frame extends JFrame {
       try {
         highlighter.addHighlight(index, index + filter.length(), painter);
       } catch(Exception e) {
-        System.out.println("unable to highlight: " + index);
-        e.printStackTrace();
+        logger.error("unable to highlight: " + index, e);
       }
     }
     textArea.setCaretPosition(0);

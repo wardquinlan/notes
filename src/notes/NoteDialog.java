@@ -21,6 +21,8 @@ import javax.swing.border.EmptyBorder;
 
 public class NoteDialog extends JDialog {
   private static final long serialVersionUID = 6299811276766639359L;
+  @SuppressWarnings("unused")
+  private static final Logger logger = new Logger(NoteDialog.class);
   private static final String DIALOG_TITLE = "Note";
   private static final int WIDTH = 1000;
   private static final int HEIGHT = 800;
