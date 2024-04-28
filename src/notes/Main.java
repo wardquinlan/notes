@@ -8,7 +8,7 @@ public class Main {
   public static void main(String[] args) {
     logger.info("starting up");
     if (args.length != 1) {
-      System.out.println("usage: notes path");
+      logger.error("usage: notes path");
       System.exit(1);
     }
     File file = new File(args[0]);
