@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 public class Model extends DefaultTableModel {
   private static final long serialVersionUID = -3950929583108303584L;
   private static final Logger logger = new Logger(Model.class);
-  private String filter;
+  private String filter = "";
   private List<Note> list = new ArrayList<>();
   private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
   
