@@ -9,6 +9,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,6 +32,7 @@ public class NoteDialog extends JDialog {
   private static final int HEIGHT = 800;
   private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
   private static final int MAX_TITLE_LENGTH = 30;
+  private static final DateFormat DF = new SimpleDateFormat("MMM dd yyyy");
   private String text;
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
@@ -63,6 +68,20 @@ public class NoteDialog extends JDialog {
         textArea.setBackground(BACKGROUND);
       }
     }
+    textArea.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_D && e.isControlDown()) {
+          Date now = Calendar.getInstance().getTime();
+          String date = DF.format(now);
+          StringBuffer sb = new StringBuffer();
+          for (int i = 0; i < date.length(); i++) {
+            sb.append('-');
+          }
+          textArea.insert(date + "\n" + sb.toString() + "\n\n", textArea.getCaretPosition());
+        }
+      }
+    });
     mainPanel.add(new LabeledComponent("Note", new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER)), BorderLayout.CENTER);
     mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
     getContentPane().add(mainPanel, BorderLayout.CENTER);
