@@ -34,14 +34,21 @@ public class NoteDialog extends JDialog {
   private static final int MAX_TITLE_LENGTH = 30;
   private static final DateFormat DF = new SimpleDateFormat("MMM d yyyy");
   private String text;
+  private Controller controller;
+  private Frame frame;
+  private JTextField titleField = new JTextField();
+  private JTextArea textArea = new JTextArea();
+  private String title;
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
     super(frame, DIALOG_TITLE, true);
+    this.controller = controller;
+    this.frame = frame;
     this.text = text;
+    this.title = title;
     setLayout(new BorderLayout());
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
-    JTextField titleField = new JTextField();
     titleField.addKeyListener(new KeyAdapter() {
       @Override
       public void keyTyped(KeyEvent e) {
@@ -59,7 +66,6 @@ public class NoteDialog extends JDialog {
       }
     }
     mainPanel.add(new LabeledComponent("Title", titleField), BorderLayout.NORTH);
-    JTextArea textArea = new JTextArea();
     textArea.setLineWrap(true);
     if (title != null) {
       textArea.setText(getText());
@@ -122,16 +128,7 @@ public class NoteDialog extends JDialog {
       write.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-          if (controller.isModified(title, getText())) {
-            JOptionPane.showMessageDialog(frame, "The note has been modified externally; you will have to cancel, refresh your search, and then try again", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-          }
-          int row = frame.getSelectedRow();
-          controller.edit(titleField.getText(), textArea.getText());
-          frame.setSelectedRow(row);
-          setText(textArea.getText());
-          setTitle(DIALOG_TITLE);
-          textArea.requestFocus();
+          write();
         }
       });
     }
@@ -174,6 +171,19 @@ public class NoteDialog extends JDialog {
     setSize(WIDTH, HEIGHT);
     setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2 - WIDTH / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2 - HEIGHT / 2);
     setVisible(true);
+  }
+  
+  private void write() {
+    if (controller.isModified(title, getText())) {
+      JOptionPane.showMessageDialog(frame, "The note has been modified externally; you will have to cancel, refresh your search, and then try again", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    int row = frame.getSelectedRow();
+    controller.edit(titleField.getText(), textArea.getText());
+    frame.setSelectedRow(row);
+    setText(textArea.getText());
+    setTitle(DIALOG_TITLE);
+    textArea.requestFocus();
   }
   
   private boolean validateTitleField(Frame frame, Controller controller, JTextField titleField) {
