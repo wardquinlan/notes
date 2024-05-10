@@ -131,6 +131,14 @@ public class NoteDialog extends JDialog {
           write();
         }
       });
+      textArea.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+          if (e.getKeyCode() == KeyEvent.VK_S && e.isControlDown()) {
+            write();
+          }
+        }
+      });
     }
     
     JButton cancel = new JButton("Cancel");
