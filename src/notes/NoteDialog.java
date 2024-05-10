@@ -32,7 +32,7 @@ public class NoteDialog extends JDialog {
   private static final int HEIGHT = 800;
   private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
   private static final int MAX_TITLE_LENGTH = 30;
-  private static final DateFormat DF = new SimpleDateFormat("MMM dd yyyy");
+  private static final DateFormat DF = new SimpleDateFormat("MMM d yyyy");
   private String text;
 
   public NoteDialog(Frame frame, Controller controller, String title, String text, boolean rename) {
