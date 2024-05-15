@@ -33,6 +33,7 @@ public class NoteDialog extends JDialog {
   private static final Color BACKGROUND = new Color(0xe0, 0xe0, 0xe0);
   private static final int MAX_TITLE_LENGTH = 30;
   private static final DateFormat DF = new SimpleDateFormat("MMM d yyyy");
+  private static final DateFormat DF2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   private String text;
   private Controller controller;
   private Frame frame;
@@ -85,6 +86,11 @@ public class NoteDialog extends JDialog {
             sb.append('-');
           }
           textArea.insert(date + "\n" + sb.toString() + "\n\n", textArea.getCaretPosition());
+        }
+        if (e.getKeyCode() == KeyEvent.VK_T && e.isControlDown()) {
+          Date now = Calendar.getInstance().getTime();
+          String date = DF2.format(now);
+          textArea.insert(date + "\n", textArea.getCaretPosition());
         }
       }
     });
