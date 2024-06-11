@@ -22,7 +22,7 @@ public class Frame extends JFrame {
   private static final Logger logger = new Logger(Frame.class);
   private static final int WIDTH = 1200;
   private static final int HEIGHT = 800;
-  private static final int DIVIDER_LOCATION = 400;
+  private static final int DIVIDER_LOCATION = 550;
   private static final int DEFAULT_FONT_SIZE = 12;
   private HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
   
@@ -52,7 +52,7 @@ public class Frame extends JFrame {
     table = new Table(this, controller, model);
     JScrollPane scrollPane = new JScrollPane(table);
     scrollPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-    JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+    JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     splitPane.setDividerLocation(DIVIDER_LOCATION);
     splitPane.setTopComponent(scrollPane);
     
