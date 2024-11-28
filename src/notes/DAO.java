@@ -3,9 +3,11 @@ package notes;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -45,7 +47,7 @@ public class DAO {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new FileReader(file));
+      reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
       StringBuffer sb = new StringBuffer();
       while (true) {
         int val = reader.read();
@@ -69,7 +71,7 @@ public class DAO {
   public void write(String title, String text) throws Exception {
     BufferedWriter writer = null;
     try {
-      writer = new BufferedWriter(new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt"));
+      writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("notes.home") + File.separator + title + ".txt"), "UTF-8"));
       writer.write(text);
     } finally {
       if (writer != null) {
