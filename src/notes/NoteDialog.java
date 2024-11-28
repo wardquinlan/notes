@@ -80,6 +80,7 @@ public class NoteDialog extends JDialog {
           String text = textArea.getText();
           List<Integer> list = Utils.getFilterIndexes(filter, text);
           Highlighter highlighter = textArea.getHighlighter();
+          highlighter.removeAllHighlights();
           for (Integer index: list) {
             try {
               highlighter.addHighlight(index, index + filter.length(), Utils.PAINTER);
@@ -94,6 +95,9 @@ public class NoteDialog extends JDialog {
     clear.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        textArea.getHighlighter().removeAllHighlights();
+        highlight.setText("");
+        highlight.requestFocus();
       }
     });
     JPanel clearPanel = new JPanel();
