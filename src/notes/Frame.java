@@ -23,7 +23,6 @@ public class Frame extends JFrame {
   private static final int HEIGHT = 800;
   private static final int DIVIDER_LOCATION = 550;
   private static final int DEFAULT_FONT_SIZE = 12;
-  private HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
   
   private FilterPanel filterPanel;
   private JTable table;
@@ -72,7 +71,7 @@ public class Frame extends JFrame {
     Highlighter highlighter = textArea.getHighlighter();
     for (Integer index: list) {
       try {
-        highlighter.addHighlight(index, index + filter.length(), painter);
+        highlighter.addHighlight(index, index + filter.length(), Utils.PAINTER);
       } catch(Exception e) {
         logger.error("unable to highlight: " + index, e);
       }

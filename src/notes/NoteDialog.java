@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -22,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.Highlighter;
 
 public class NoteDialog extends JDialog {
   private static final long serialVersionUID = 6299811276766639359L;
@@ -74,7 +76,17 @@ public class NoteDialog extends JDialog {
       @Override
       public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-          
+          String filter = highlight.getText();
+          String text = textArea.getText();
+          List<Integer> list = Utils.getFilterIndexes(filter, text);
+          Highlighter highlighter = textArea.getHighlighter();
+          for (Integer index: list) {
+            try {
+              highlighter.addHighlight(index, index + filter.length(), Utils.PAINTER);
+            } catch(Exception ex) {
+              logger.error("unable to highlight: " + index, ex);
+            }
+          }
         }
       }
     });
