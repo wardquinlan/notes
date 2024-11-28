@@ -70,9 +70,12 @@ public class NoteDialog extends JDialog {
     }
 
     JTextField highlight = new JTextField(20);
-    highlight.addActionListener(new ActionListener() {
+    highlight.addKeyListener(new KeyAdapter() {
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+          
+        }
       }
     });
     LabeledComponent highlightComponent = new LabeledComponent("Highlight", highlight);

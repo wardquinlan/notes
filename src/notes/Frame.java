@@ -3,7 +3,6 @@ package notes;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -69,7 +68,7 @@ public class Frame extends JFrame {
   public void setText(String filter, String text) {
     logger.info("filter:" + filter);
     textArea.setText(text);
-    List<Integer> list = getFilterIndexes(filter, text);
+    List<Integer> list = Utils.getFilterIndexes(filter, text);
     Highlighter highlighter = textArea.getHighlighter();
     for (Integer index: list) {
       try {
@@ -79,25 +78,6 @@ public class Frame extends JFrame {
       }
     }
     textArea.setCaretPosition(0);
-  }
-  
-  private List<Integer> getFilterIndexes(String filter, String text) {
-    filter = filter.toUpperCase();
-    text = text.toUpperCase();
-    List<Integer> list = new ArrayList<>();
-    if (filter.equals("")) {
-      return list;
-    }
-    int index = 0;
-    while (true) {
-      index = text.indexOf(filter, index);
-      if (index == -1) {
-        break;
-      }
-      list.add(index);
-      index += filter.length();
-    }
-    return list;
   }
   
   public int getSelectedRow() {
