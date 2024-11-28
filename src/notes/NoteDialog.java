@@ -90,10 +90,22 @@ public class NoteDialog extends JDialog {
         }
       }
     });
+    JButton clear = new JButton("Clear");
+    clear.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+      }
+    });
+    JPanel clearPanel = new JPanel();
+    clearPanel.add(clear);
     LabeledComponent highlightComponent = new LabeledComponent("Highlight", highlight);
     highlightComponent.setBorder(new EmptyBorder(0, 5, 0, 0));
+    JPanel highlightPanel = new JPanel();
+    highlightPanel.setLayout(new BorderLayout());
+    highlightPanel.add(highlightComponent, BorderLayout.CENTER);
+    highlightPanel.add(clearPanel, BorderLayout.EAST);
     topPanel.add(new LabeledComponent("Title", titleField), BorderLayout.CENTER);
-    topPanel.add(highlightComponent, BorderLayout.EAST);
+    topPanel.add(highlightPanel, BorderLayout.EAST);
     mainPanel.add(topPanel, BorderLayout.NORTH);
     textArea.setLineWrap(true);
     if (title != null) {

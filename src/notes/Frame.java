@@ -1,7 +1,6 @@
 package notes;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 
@@ -12,9 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
-import javax.swing.text.Highlighter.HighlightPainter;
 
 public class Frame extends JFrame {
   private static final long serialVersionUID = 4319336198324776603L;
