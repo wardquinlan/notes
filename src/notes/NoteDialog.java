@@ -48,6 +48,8 @@ public class NoteDialog extends JDialog {
     this.text = text;
     this.title = title;
     setLayout(new BorderLayout());
+    JPanel topPanel = new JPanel();
+    topPanel.setLayout(new BorderLayout());
     JPanel mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
     titleField.addKeyListener(new KeyAdapter() {
@@ -66,7 +68,18 @@ public class NoteDialog extends JDialog {
         titleField.setEditable(false);
       }
     }
-    mainPanel.add(new LabeledComponent("Title", titleField), BorderLayout.NORTH);
+
+    JTextField highlight = new JTextField(20);
+    highlight.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+      }
+    });
+    LabeledComponent highlightComponent = new LabeledComponent("Highlight", highlight);
+    highlightComponent.setBorder(new EmptyBorder(0, 5, 0, 0));
+    topPanel.add(new LabeledComponent("Title", titleField), BorderLayout.CENTER);
+    topPanel.add(highlightComponent, BorderLayout.EAST);
+    mainPanel.add(topPanel, BorderLayout.NORTH);
     textArea.setLineWrap(true);
     if (title != null) {
       textArea.setText(getText());
