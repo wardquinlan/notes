@@ -105,6 +105,10 @@ public class NoteDialog extends JDialog {
           String date = DF2.format(now);
           textArea.insert(date + "\n", textArea.getCaretPosition());
         }
+        if (e.getKeyCode() == KeyEvent.VK_H && e.isControlDown()) {
+          highlight.requestFocus();
+          highlight.selectAll();
+        }
       }
     });
     mainPanel.add(new LabeledComponent("Note", new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER)), BorderLayout.CENTER);
