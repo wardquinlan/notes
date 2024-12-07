@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.Highlighter;
 
@@ -49,6 +50,7 @@ public class NoteDialog extends JDialog {
     this.frame = frame;
     this.text = text;
     this.title = title;
+    textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_MASK), "none");
     setLayout(new BorderLayout());
     JPanel topPanel = new JPanel();
     topPanel.setLayout(new BorderLayout());
