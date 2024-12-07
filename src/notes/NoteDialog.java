@@ -138,7 +138,7 @@ public class NoteDialog extends JDialog {
           String date = DF2.format(now);
           textArea.insert(date + "\n", textArea.getCaretPosition());
         }
-        if (e.getKeyCode() == KeyEvent.VK_H && e.isControlDown()) {
+        if (e.getKeyCode() == KeyEvent.VK_F && e.isControlDown()) {
           highlight.requestFocus();
           highlight.selectAll();
         }
