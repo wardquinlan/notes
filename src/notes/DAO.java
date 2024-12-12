@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -47,7 +49,11 @@ public class DAO {
     File file = new File(System.getProperty("notes.home") + File.separator + title + ".txt");
     BufferedReader reader = null;
     try {
-      reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+      if ("true".equals(System.getProperty("notes.usedefaultcharset"))) {
+        reader = new BufferedReader(new FileReader(file));
+      } else {
+        reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+      }
       StringBuffer sb = new StringBuffer();
       while (true) {
         int val = reader.read();
@@ -71,7 +77,11 @@ public class DAO {
   public void write(String title, String text) throws Exception {
     BufferedWriter writer = null;
     try {
-      writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("notes.home") + File.separator + title + ".txt"), "UTF-8"));
+      if ("true".equals(System.getProperty("notes.usedefaultcharset"))) {
+        writer = new BufferedWriter(new FileWriter(System.getProperty("notes.home") + File.separator + title + ".txt"));
+      } else {
+        writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(System.getProperty("notes.home") + File.separator + title + ".txt"), "UTF-8"));
+      }
       writer.write(text);
     } finally {
       if (writer != null) {
